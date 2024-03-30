@@ -8,6 +8,11 @@ from sklearn.model_selection import train_test_split
 from src.exception import FileOperationError
 from src.log_config import logging
 
+# Import after data transformation 
+from src.components.data_transformation import DataTransformationConfig
+from src.components.data_transformation import DataTransformation
+
+
 # Define a dataclass that will hold data ingestion configuration 
 # This is a container for holding configuration data such as training, testing and raw data 
 @dataclass
@@ -68,7 +73,16 @@ class DataIngestion:
         except Exception as e:
             raise FileOperationError(e, sys)
 
-if __name__ =="__main__":
+# if __name__ == "__main__":
+#      config = DataIngestionConfig()
+#      obj=DataIngestion(config)
+#      obj.initiate_data_ingestion()
+
+if __name__=="__main__":
     config = DataIngestionConfig()
-    obj = DataIngestion(config)
-    obj.initiate_data_ingestion()
+    obj = DataIngestion(config) # creates an instance of the DataIngestion class, which is responsible for data ingestion operations.
+    train_data, test_data =  obj.initiate_data_ingestion() # This line calls the initiate_data_ingestion() method of the DataIngestion.
+
+    data_transformation = DataTransformation() # Creates an instance of the DataTransformation class, responsible for data transformation operations.
+    data_transformation.initiate_data_transformation(train_data, test_data) # This method initiates the data transformation process
+        
