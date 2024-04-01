@@ -29,10 +29,10 @@ class DataTransformation:
 
     def get_data_transformer_obj(self):
         try:
-            categorical_columns = ['State', 'Response', 'Coverage', 'Education', 'Employment Status', 'Gender', 'Location',
-                                    'Marital Status', 'Policy Type', 'Policy', 'Renew Offer Type', 'Sales Channel', 'Vehicle Class', 'Vehicle Size']
-            numerical_columns = ['Income', 'Monthly Premium Auto', 'Months Since Last Claim', 'Months Since Policy Inception',
-                                 'Number of Open Complaints', 'Number of Policies', 'Total Claim Amount']
+            #categorical_columns = ['State', 'Response', 'Coverage', 'Education', 'Employment Status', 'Gender', 'Location',
+            #                        'Marital Status', 'Policy Type', 'Policy', 'Renew Offer Type', 'Sales Channel', 'Vehicle Class', 'Vehicle Size']
+            #numerical_columns = ['Income', 'Monthly Premium Auto', 'Months Since Last Claim', 'Months Since Policy Inception',
+            #                    'Number of Open Complaints', 'Number of Policies', 'Total Claim Amount']
             
             # numerical_columns = ['Income', 'Months Since Last Claim', 'Months Since Policy Inception', 'Number of Open Complaints',
             #                      'Number of Policies']
@@ -42,14 +42,34 @@ class DataTransformation:
             # label_encode_columns = ['Response', 'Coverage', 'Education', 'Gender', 'Policy', 'Renew Offer Type', 'Vehicle Size']
            
             # outlier_cols = ['Monthly Premium Auto', 'Total Claim Amount']
+            numerical_columns = ['Response', 'Coverage', 'Education', 'Gender', 'Income',
+                                'Monthly Premium Auto', 'Months Since Last Claim',
+                                'Months Since Policy Inception', 'Number of Open Complaints',
+                                'Number of Policies', 'Policy', 'Renew Offer Type',
+                                'Total Claim Amount', 'Vehicle Size',
+                                'State_Arizona', 'State_California', 'State_Nevada', 'State_Oregon',
+                                'State_Washington', 'Employment Status_Disabled',
+                                'Employment Status_Employed', 'Employment Status_Medical Leave',
+                                'Employment Status_Retired', 'Employment Status_Unemployed',
+                                'Location_Rural', 'Location_Suburban', 'Location_Urban',
+                                'Marital Status_Divorced', 'Marital Status_Married',
+                                'Marital Status_Single', 'Policy Type_Corporate Auto',
+                                'Policy Type_Personal Auto', 'Policy Type_Special Auto',
+                                'Sales Channel_Agent', 'Sales Channel_Branch',
+                                'Sales Channel_Call Center', 'Sales Channel_Web',
+                                'Vehicle Class_Four-Door Car', 'Vehicle Class_Luxury Car',
+                                'Vehicle Class_Luxury SUV', 'Vehicle Class_SUV',
+                                'Vehicle Class_Sports Car', 'Vehicle Class_Two-Door Car'
+                    ]
+            categorical_columns = []
 
-           # Create a pipeline for numeric columns 
+            # Create a pipeline for numeric columns 
             num_pipeline = Pipeline(
                 steps=[
                     # Impute missing values with mean as strategy  
                     ('imputer', SimpleImputer(strategy='mean')),
                     # Scale data using standard scaler
-                    ('scaler', StandardScaler())
+                    #('scaler', StandardScaler())
                 ]
             )
             # Create a pipeline for categorical columns
@@ -58,9 +78,9 @@ class DataTransformation:
                     # Impute missing values with the most frequent value
                     ('imputer', SimpleImputer(strategy='most_frequent')),
                     # One hot encode the categorical data
-                    ('onehot', OneHotEncoder(handle_unknown='ignore')),
+                    #('onehot', OneHotEncoder(handle_unknown='ignore')),
                     # Scale the data using StandardScaler
-                    ('scaler', StandardScaler(with_mean=False))
+                    #('scaler', StandardScaler(with_mean=False))
                 ]
             )
 
